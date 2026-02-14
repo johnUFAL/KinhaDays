@@ -1,0 +1,93 @@
+const palavras = [
+    "Inspiração", "Inteligente", "Dedicada", "Linda", "Engraçada",
+    "Forte", "Determinada", "Convicta", "Autêntica", "Especial",
+    "Confiável", "Cativante", "Única", "Suporte (melhor)", "Alegria",
+    "Talentosa", "Divertida", "Persistente", "Responsável", "Destemida",
+    "Maluca", "Encantadora", "Cheirosa", "Brava", "Gata",
+    "Esforçada", "Eloquente", "Corajosa", "jubileueu", "Chata",
+    "Trabalhadora", "Insubstituível", "Brilhante", "Competente", "Perfeita",
+    "Madura", "Otaka", "Pedagoga", "Grande 💪🏿", "Vibrante",
+    "Mulher", "Realista", "Sorriso", "Gamer", "Admirável",
+    "Gentil", "Intensa", "Estilosa", "Calorosa", "Sincera",
+    "Comunista", "Pitú", "Reservada", "Consciente", "Tenaz",
+    "Honesta", "Animada", "tomate 🍅", "Importante", "Guerreira",
+    "Chata", "Complexa", "Leitora", "Comunicativa", "Indescritível",
+    "Carismática", "Empática", "Atenciosa", "Extraordinária", "Radiante",
+    "Abençoada", "Educada", "Espontânea", "Marcante", "Encorajadora",
+    "Impressionante", "Complicada", "Católica", "Indiana", "Beats",
+    "Verdadeira", "Boa...", "Resolvida", "Incrível", "Sensata",
+    "Diferente", "Chata", "Amiga", "São paulina", "Teimosa",
+    "Fofoqueira", "Merecedora", "Doida", "Memórias", "Vivaz",
+    "Segura", "Deslumbrante", "Espetacular", "Valiosa", "Eduarda Rebeca"
+];
+
+document.addEventListener("DOMContentLoaded", function() {
+    const wordList = document.getElementById('wordList');
+    
+    for (let i = 0; i < 5; i++) {
+        const wordItem = document.createElement('div');
+        wordItem.className = 'word-item';
+        wordList.appendChild(wordItem);
+    }
+
+    const wordItems = document.querySelectorAll('.word-item');
+    let startIndex = 0;
+
+    function updatewords() {
+        for (let i = 0; i < 5; i++) {
+            const index = (startIndex + i) % palavras.length;
+            wordItems[i].textContent = palavras[index];
+
+            if (i == 2) {
+                wordItems[i].className = 'word-item center';
+            } else {
+                wordItems[i].className = 'word-item';
+            }
+        }
+    }
+
+    function nextWords() {
+        startIndex = (startIndex + 1) % palavras.length;
+        updatewords();
+    }
+
+    function prevWords() {
+        startIndex = (startIndex - 1 + palavras.length) % palavras.length;
+        updatewords();
+    }
+
+    updatewords();
+
+    setInterval(nextWords, 3000);
+
+    let touchStarty = 0;
+    let touchEndy = 0;
+
+    wordList.addEventListener('touchstart', (e) => {
+        touchStarty = e.touches[0].clientY;
+    });
+
+    wordList.addEventListener('touchend', (e) => {
+        touchEndy = e.changedTouches[0].clientY;
+        if (touchStarty - touchEndy > 30) {
+            nextWords();
+        }
+        if (touchEndy - touchStarty > 30) {
+            prevWords();
+        }
+    });
+
+    let wheelTimeout;
+    wordList.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => {
+            if (e.deltaY > 0) {
+                nextWords();
+            }
+            if (e.deltaY < 0) {
+                prevWords();
+            }
+        }, 50);   
+    });
+});
