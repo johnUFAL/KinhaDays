@@ -5,25 +5,33 @@
 }
 
 body {
-    background: linear-gradient(145deg, #0a0f1e 0%, #1a1f35 50%, #0d1128 100%);
+    background: linear-gradient(to bottom, #01012b, #031b38 70%, #050b25);
     min-height: 100vh;
     font-family: 'Roboto', sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
-/* Efeito de estrelas sutis */
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(white 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.1;
-    pointer-events: none;
+    background-image: 
+        radial-gradient(2px 2px at 10px 20px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 30px 60px, #ff6b6b, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 80px 120px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 150px 50px, #ffb347, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 200px 180px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 250px 250px;
+    opacity: 0.3;
+    animation: starsMove 60s linear infinite;
+}
+
+@keyframes starsMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(-250px); }
 }
 
 .container {
@@ -55,17 +63,21 @@ body::before {
 
 .bebas-neue-regular {
     font-family: "Bebas Neue", sans-serif;
-    font-weight: 400;
     font-size: 2.4rem;
     margin-bottom: 2rem;
     color: #fff;
     text-shadow: 
-        0 0 15px #ff6b6b,
-        2px 2px 0 rgba(0, 0, 0, 0.3);
+        0 0 10px #ff6b6b,
+        0 0 20px #ff6b6b,
+        0 0 40px #ff6b6b;
     line-height: 1.2;
     letter-spacing: 2px;
-    position: relative;
-    display: inline-block;
+    animation: glowPulse 3s infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b; }
+    50% { text-shadow: 0 0 20px #ff6b6b, 0 0 60px #ff6b6b; }
 }
 
 .bebas-neue-regular span {
@@ -73,7 +85,6 @@ body::before {
     text-shadow: 0 0 20px #ff6b6b;
 }
 
-/* CARROSSEL VERTICAL */
 .word-carousel {
     position: relative;
     width: 100%;
@@ -105,10 +116,12 @@ body::before {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-align: center;
     opacity: 0.3;
-    transform: scale(0.9) translateY(0);
+    transform: scale(0.9) translateY(0) rotateX(10deg);
     filter: blur(2px);
     letter-spacing: 0.5px;
     width: 100%;
+    text-transform: uppercase;
+    perspective: 500px;
 }
 
 .word-item.center {
@@ -116,13 +129,29 @@ body::before {
     font-weight: 700;
     color: #ff6b6b;
     opacity: 1;
-    transform: scale(1.15) translateY(0);
+    transform: scale(1.15) translateY(0) rotateX(0deg);
     filter: blur(0);
     text-shadow: 
         0 0 20px rgba(255, 107, 107, 0.8),
         0 0 40px rgba(255, 107, 107, 0.4);
     padding: 15px 0;
-    background: linear-gradient(90deg, transparent, rgba(255,107,107,0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,107,107,0.15), transparent);
+    animation: wordPop 0.5s ease;
+}
+
+@keyframes wordPop {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1.15); opacity: 1; }  
+}
+
+.word-item.center:hover {
+    animation: vibrate 0.3s ease infinite;
+}
+
+@keyframes vibrate {
+    0%, 100% { transform: scale(1.15) translateX(0); }
+    25% { transform: scale(1.15) translateX(-2px); }
+    75% { transform: scale(1.15) translateX(2px); }
 }
 
 .word-item:nth-child(2),
@@ -134,7 +163,6 @@ body::before {
     filter: blur(1px);
 }
 
-/* Sombreamento mais elegante */
 .word-carousel::before,
 .word-carousel::after {
     content: '';
@@ -166,16 +194,44 @@ body::before {
     line-height: 1.6;
     padding: 0 1rem;
     position: relative;
-    display: inline-block;
+    border-left: 3px solid #ff6b6b;
+    border-right:  3px solid #ff6b6b;
+    background: rgba(255, 107, 1107, 0.05);
+    border-radius: 10px;
+    animation: borderGlow 2s infinite
+}
+
+@keyframes borderGlow {
+    0%, 100% { border-color: #ff6b6b; }
+    50% { border-color: #ffb347; }     
 }
 
 .footer-text::before,
 .footer-text::after {
-    opacity: 0.5;
-    margin: 0 10px;
+    content: '✦';
+    position: absolute;
+    color: #ff6b6b;
     font-size: 1.2rem;
+    opacity: 0.6;
+    animation: sparkle 2s infinite;
 }
 
+.footer-text::before {
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-text::after {
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: translateY(-50%) scale(1); }
+    50% { opacity: 1; transform: translateY(-50%) scale(1.2); }   
+}
 
 .button {
     width: 200px;
@@ -195,7 +251,6 @@ body::before {
     transform: scale(1.05);
 }
 
-/* ANIMAÇÃO DE ENTRADA */
 @keyframes fadeInUp {
     from {
         opacity: 0;
