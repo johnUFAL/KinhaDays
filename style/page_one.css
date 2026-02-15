@@ -91,6 +91,11 @@ body {
     justify-content: center;
 }
 
+.button:active {
+    transform: scale(0.96);
+}
+
+
 .fireworks {
     position: fixed;
     top: 0;

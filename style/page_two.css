@@ -46,6 +46,16 @@ body {
     margin-bottom: 1rem;
 }
 
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-size: 2.8rem; 
+    margin-bottom: 0.8rem; 
+    color: #ff6b6b;
+    text-shadow: 0 0 8px rgba(255, 107, 107, 0.5);
+    line-height: 1.2;
+}
+
 .bebas-neue-regular.special {
     font-size: 2rem;
     background: linear-gradient(45deg, #ff6b6b, #ffb347);
@@ -91,7 +101,7 @@ body {
     width: 100%;
     height: 100%;
     flex-shrink: 0;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     background: rgba(0, 0, 0, 0.3); 
     transition: transform 0.3s;
@@ -191,14 +201,8 @@ body {
     transform: scale(1.05);
 }
 
-.bebas-neue-regular {
-    font-family: "Bebas Neue", sans-serif;
-    font-weight: 400;
-    font-size: 2.8rem; 
-    margin-bottom: 0.8rem; 
-    color: #ff6b6b;
-    text-shadow: 0 0 8px rgba(255, 107, 107, 0.5);
-    line-height: 1.2;
+.button:active {
+    transform: scale(0.96);
 }
 
 @media (max-width: 768px) {

@@ -88,14 +88,88 @@ body::before {
 .word-carousel {
     position: relative;
     width: 100%;
-    height: 280px;
-    margin: 1.8rem 0;
+    height: 300px;
+    margin: 2rem 0;
     overflow: hidden;
     display: flex;
     justify-content: center;
-    border-radius: 20px;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 20px 0;
+    border-radius: 40px;
+    background: rgba(10, 15, 30, 0.6);
+    backdrop-filter: blur(20px);
+    padding: 25px 0;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    box-shadow: 
+        inset 0 0 50px rgba(255, 107, 107, 0.1),
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 107, 107, 0.1);
+}
+
+.word-carousel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 107, 107, 0.1),
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 107, 107, 0.1),
+        transparent
+    );
+    transform: skewX(-20deg);
+    animation: shine 8s infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes shine {
+    0% { left: -50%; opacity: 0; }
+    30% { opacity: 0.5; }
+    70% { opacity: 0.5; }
+    100% { left: 150%; opacity: 0; }
+}
+
+.word-carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(10, 15, 30, 0.8) 100%);
+    pointer-events: none;
+    z-index: 1
+}
+
+.word-carousel .gradient-top,
+.word-carousel .gradient-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100px;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.word-carousel .gradient-top {
+    top: 0;
+    background: linear-gradient(to bottom, 
+        rgba(20, 25, 45, 0.9) 0%,
+        rgba(20, 25, 45, 0.5) 40%,
+        transparent 100%);
+    border-radius: 40px 40px 0 0;
+}
+
+.word-carousel .gradient-bottom {
+    bottom: 0;
+    background: linear-gradient(to top, 
+        rgba(20, 25, 45, 0.9) 0%,
+        rgba(20, 25, 45, 0.5) 40%,
+        transparent 100%);
+    border-radius: 0 0 40px 40px;
 }
 
 .word-list {
@@ -106,6 +180,7 @@ body::before {
     width: 100%;
     height: 100%;
     position: relative;
+    z-index: 3;
 }
 
 .word-item {
@@ -145,7 +220,7 @@ body::before {
 }
 
 .word-item.center:hover {
-    animation: vibrate 0.3s ease infinite;
+    animation: vibrate 0.3s ease 2;
 }
 
 @keyframes vibrate {
@@ -175,14 +250,30 @@ body::before {
     border-radius: 20px;
 }
 
-.word-carousel::before {
+.word-carousel .particles {
+    position: absolute;
     top: 0;
-    background: linear-gradient(to bottom, #1a1f35 0%, transparent 100%);
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.word-carousel::after {
-    bottom: 0;
-    background: linear-gradient(to top, #1a1f35 0%, transparent 100%);
+.word-carousel .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 107, 107, 0.3);
+    border-radius: 50%;
+    animation: float 10s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translateY(100%) translateX(0); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-500%) translateX(20px); opacity: 0; }
 }
 
 .footer-text {
@@ -196,7 +287,7 @@ body::before {
     position: relative;
     border-left: 3px solid #ff6b6b;
     border-right:  3px solid #ff6b6b;
-    background: rgba(255, 107, 1107, 0.05);
+    background: rgba(255, 107, 107, 0.05);
     border-radius: 10px;
     animation: borderGlow 2s infinite
 }
@@ -251,6 +342,11 @@ body::before {
     transform: scale(1.05);
 }
 
+.button:active {
+    transform: scale(0.96);
+}
+
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -272,7 +368,6 @@ body::before {
 .message > *:nth-child(3) { animation-delay: 0.5s; }
 .message > *:nth-child(4) { animation-delay: 0.7s; }
 
-/* RESPONSIVO */
 @media (max-width: 768px) {
     .bebas-neue-regular {
         font-size: 2rem;

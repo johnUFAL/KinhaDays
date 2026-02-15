@@ -90,4 +90,21 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }, 50);   
     });
+
+    function createParticles() {
+        const particlesContainer = document.querySelector('.particles');
+        if (!particlesContainer) return;
+        
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = 8 + Math.random() * 10 + 's';
+            particle.style.background = `rgba(255, ${100 + Math.random() * 155}, ${100 + Math.random() * 155}, ${0.2 + Math.random() * 0.3})`;
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    createParticles();
 });
