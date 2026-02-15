@@ -130,3 +130,51 @@ body {
         font-size: 0.9rem;
     }
 }
+
+@media (min-width: 390px) and (max-width: 430px) {
+    body {
+        font-size: 15px;
+    }
+    
+    .message {
+        max-width: 92% !important;
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .bebas-neue-regular {
+        font-size: 2rem !important;
+        line-height: 1.1 !important;
+    }
+    
+    .roboto-regular {
+        font-size: 0.95rem !important;
+        padding: 0 0.3rem !important;
+    }
+    
+    .button {
+        width: 180px !important;
+        height: 42px !important;
+        font-size: 0.95rem !important;
+    }
+}
+
+@media (max-width: 389px) {
+    .message {
+        max-width: 94% !important;
+        padding: 1.2rem 0.8rem !important;
+    }
+    
+    .bebas-neue-regular {
+        font-size: 1.7rem !important;
+    }
+    
+    .roboto-regular {
+        font-size: 0.85rem !important;
+    }
+    
+    .button {
+        width: 160px !important;
+        height: 40px !important;
+        font-size: 0.85rem !important;
+    }
+}
