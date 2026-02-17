@@ -60,36 +60,48 @@ document.addEventListener("DOMContentLoaded", function() {
 
     setInterval(nextWords, 3000);
 
-    let touchStarty = 0;
-    let touchEndy = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let isScrolling = false;
 
     wordList.addEventListener('touchstart', (e) => {
-        touchStarty = e.touches[0].clientY;
-    });
+        touchStartY = e.touches[0].clientY;
+        isScrolling = false;
+    }, { passive: true });
+
+    wordList.addEventListener('touchmove', (e) => {
+        if (!isScrolling && Math.abs(e.touches[0].clientY - touchStartY) > 10) {
+            isScrolling = true;
+            e.preventDefault(); 
+        }
+    }, { passive: false });
 
     wordList.addEventListener('touchend', (e) => {
-        touchEndy = e.changedTouches[0].clientY;
-        if (touchStarty - touchEndy > 30) {
-            nextWords();
-        }
-        if (touchEndy - touchStarty > 30) {
-            prevWords();
+        if (!isScrolling) return;
+        
+        touchEndY = e.changedTouches[0].clientY;
+        const diff = touchStartY - touchEndY;
+        
+        if (Math.abs(diff) > 30) { 
+            if (diff > 0) {
+                nextWords(); 
+            } else {
+                prevWords(); 
+            }
         }
     });
 
-    let wheelTimeout;
     wordList.addEventListener('wheel', (e) => {
         e.preventDefault();
         clearTimeout(wheelTimeout);
         wheelTimeout = setTimeout(() => {
-            if (e.deltaY > 0) {
+            if (e.deltaY > 20) {
                 nextWords();
-            }
-            if (e.deltaY < 0) {
+            } else if (e.deltaY < -20) {
                 prevWords();
             }
-        }, 50);   
-    });
+        }, 30);
+    }, { passive: false });
 
     function createParticles() {
         const particlesContainer = document.querySelector('.particles');
