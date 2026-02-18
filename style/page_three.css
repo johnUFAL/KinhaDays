@@ -343,7 +343,8 @@ body::before {
     border: none;
     outline: none;
     color: #fff;
-    background: #111;
+    background: #ff6347;
+    box-shadow: 0 0 25px #ff6347;
     cursor: pointer;
     border-radius: 10px;
     font-size: 1rem;
@@ -353,6 +354,8 @@ body::before {
 
 .button:hover {
     transform: scale(1.05);
+    background: #ff6347;
+    box-shadow: 0 0 25px #ff6347;
 }
 
 .button:active {
@@ -448,5 +451,18 @@ body::before {
     .word-carousel .gradient-top,
     .word-carousel .gradient-bottom {
         height: 60px;
+    }
+}
+
+@-moz-document url-prefix() {
+    .word-item.center {
+        font-size: 2rem; 
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 430px) {
+        .word-item.center {
+            font-size: 1.6rem;
+        }
     }
 }

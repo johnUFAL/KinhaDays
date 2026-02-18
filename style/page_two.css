@@ -184,7 +184,8 @@ body {
     border: none;
     outline: none;
     color: #fff;
-    background: #111;
+    background: #ff6347;
+    box-shadow: 0 0 15px #ff6347;
     cursor: pointer;
     position: relative;
     z-index: 0;
@@ -199,6 +200,8 @@ body {
 
 .button:hover {
     transform: scale(1.05);
+    background: #ff6347;
+    box-shadow: 0 0 25px #ff6347;
 }
 
 .button:active {
