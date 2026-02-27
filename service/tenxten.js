@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const wordItems = document.querySelectorAll('.word-item');
-    let startIndex = 0;
-
+    let startIndex = 0; 
+    
     function updatewords() {
         for (let i = 0; i < 5; i++) {
             const index = (startIndex + i) % palavras.length;
@@ -56,13 +56,15 @@ document.addEventListener("DOMContentLoaded", function() {
         updatewords();
     }
 
-    updatewords();
+    updatewords(); 
 
     setInterval(nextWords, 3000);
 
     let touchStartY = 0;
     let touchEndY = 0;
     let isScrolling = false;
+    let wheelTimeout;
+    let lastWheelTime = 0;
 
     wordList.addEventListener('touchstart', (e) => {
         touchStartY = e.touches[0].clientY;
@@ -93,14 +95,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
     wordList.addEventListener('wheel', (e) => {
         e.preventDefault();
+        
+        const now = Date.now();
+        if (now - lastWheelTime < 200) return; // Debounce para evitar múltiplos disparos
+        
         clearTimeout(wheelTimeout);
         wheelTimeout = setTimeout(() => {
-            if (e.deltaY > 20) {
-                nextWords();
-            } else if (e.deltaY < -20) {
-                prevWords();
+            if (Math.abs(e.deltaY) > 20) {
+                if (e.deltaY > 0) {
+                    nextWords();
+                } else {
+                    prevWords();
+                }
+                lastWheelTime = now;
             }
-        }, 30);
+        }, 50);
     }, { passive: false });
 
     function createParticles() {
