@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const wordItems = document.querySelectorAll('.word-item');
-    let startIndex = 0; 
-    
+    let startIndex = palavras.length-2; 
+
     function updatewords() {
         for (let i = 0; i < 5; i++) {
             const index = (startIndex + i) % palavras.length;
